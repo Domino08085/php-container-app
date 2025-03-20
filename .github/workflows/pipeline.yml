@@ -26,6 +26,14 @@ jobs:
       - name: Build Docker images
         run: docker compose build
 
+      - name: Update .env.dev file with secrets
+        run: |
+          echo "APP_ENV=${{ secrets.APP_ENV }}" >> .env.dev
+          echo "APP_SECRET=${{ secrets.APP_SECRET }}" >> .env.dev
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env.dev
+          echo "MESSENGER_TRANSPORT_DSN=${{ secrets.MESSENGER_TRANSPORT_DSN }}" >> .env.dev
+          echo "REDIS_DSN=${{ secrets.REDIS_DSN }}" >> .env.dev
+
       - name: Install dependencies
         run: docker compose run --rm app composer install
 
