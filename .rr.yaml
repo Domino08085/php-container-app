@@ -1,0 +1,14 @@
+server:
+  command: "php bin/console bald:worker"
+
+http:
+  address: 0.0.0.0:9000
+  middleware: ["static", "gzip"]
+
+  static:
+    dir: "public"
+    forbid: [".php"]
+
+logs:
+  mode: production
+  level: error
