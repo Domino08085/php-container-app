@@ -7,7 +7,6 @@ services:
     container_name: app
     volumes:
       - .:/var/www/html
-      - ./env.dev:/var/www/html/.env
     working_dir: /var/www/html
     ports:
       - "9000:9000"

@@ -33,7 +33,9 @@ jobs:
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env.dev
           echo "MESSENGER_TRANSPORT_DSN=${{ secrets.MESSENGER_TRANSPORT_DSN }}" >> .env.dev
           echo "REDIS_DSN=${{ secrets.REDIS_DSN }}" >> .env.dev
-          cp .env.dev .env
+
+      - name: Copy .env.dev to .env inside the container
+        run: docker compose run --rm app sh -c "cp .env.dev .env"
 
       - name: Install dependencies
         run: docker compose run --rm app composer install
