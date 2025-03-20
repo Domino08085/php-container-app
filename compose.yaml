@@ -7,6 +7,7 @@ services:
     container_name: app
     volumes:
       - .:/var/www/html
+      - ./env.dev:/var/www/html/.env
     working_dir: /var/www/html
     ports:
       - "9000:9000"
@@ -14,6 +15,8 @@ services:
       APP_ENV: ${APP_ENV:-dev}
       DATABASE_URL: ${DATABASE_URL}
       REDIS_DSN: ${REDIS_DSN}
+      APP_SECRET: ${APP_SECRET}
+      MESSENGER_TRANSPORT_DSN: ${MESSENGER_TRANSPORT_DSN}
     depends_on:
       - db
       - redis
