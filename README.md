@@ -1,35 +1,3 @@
-# Task Manager API - DevOps Recruitment Task
-
-## Recruitment Task
-
-Your task is:
-
-1. **Application Containerization**
-
-2. **CI/CD Configuration**
-   - Choose one of the CI systems (Jenkins or GitHub Actions)
-   - Configure a pipeline that will:
-     - Run static code analysis
-     - Build and tag Docker images
-  - Use RoadRunner instead of traditional PHP-FPM + web server setup
-
-## Tips
-
-1. Familiarize yourself with the application code before starting work
-2. Remember to apply security best practices
-3. Document your solutions
-4. Be prepared to discuss your technical decisions during the interview
-
-## Migrations
-
-```bash
-# Database configuration in .env
-# DATABASE_URL="postgresql://username:password@localhost:5432/task_manager"
-
-# Running migrations
-php bin/console doctrine:migrations:migrate
-```
-
 ## Project Description
 
 Task Manager API is a simple application written in Symfony 6.3, used for managing tasks (todo list) via REST API. The application includes the following functionalities:
@@ -71,3 +39,71 @@ composer cs-fix
 - PostgreSQL 15
 - Redis 6.0
 - Symfony CLI (optional)
+
+**CI/CD Configuration**
+
+After every commit or pull request on main branch the pipeline is triggered:
+The pipeline is:
+- Running static code analysis:
+  - composer test
+  - composer stan
+  - composer cs
+- Building and tagging Docker images
+- Pushing Docker images to DockerHub
+
+### Building and running your application
+
+When you're ready, start your application by running:
+`docker compose up --build`.
+
+Your application will be available at http://localhost:9000.
+
+### Running the application and doing manual code analysis
+
+1. Make your own version of the .env.dev and fill in the variables
+
+
+2. Run the environment in detached mode
+
+```
+docker compose up -d
+```
+
+or if it dosen't work for you use
+
+```
+docker-compose up -d
+```
+
+3. Get the development container ID
+
+```
+docker ps
+```
+
+4. Connect to the container
+
+```
+docker exec -it <container_id> /bin/bash
+```
+
+5. Perform code analysis using commands:
+
+Unit and functional tests using PHPUnit
+```bash
+composer test
+```
+
+Static code analysis using PHPStan (level 5)
+```bash
+composer stan
+```
+
+Code formatting using Symplify/Easy-Coding-Standard
+```bash
+# To check
+composer cs
+
+# To fix
+composer cs-fix
+```
